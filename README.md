@@ -3,7 +3,7 @@
 ## Este é o repositório de instalação do ambiente Graph-Car
 ### O Script que deve ser executado na nuvem é o setupGraphCar.sh
 
-#### O Script em zsh é feito para quesitos de compatibilidade e está em desenvolvimento, em uma futura versão ele executará os scripts do java e mysql automaticamente
+#### O Script em zsh é feito para quesitos de compatibilidade com o DarwinOs (MacOs) e está em desenvolvimento, em uma futura versão ele executará os scripts do java e mysql automaticamente
 
 ## Fluxo do script
 As primeiras duas linhas armazenam em uma variável o nível de permissão do usuário
