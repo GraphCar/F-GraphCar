@@ -32,27 +32,13 @@ if [ $? = 0 ]
 	fi
 fi
 
-echo "Verificando se o NPM já está instalado"
-npm -- version
-
-if [ $? = 0 ]
- then echo "NPM já instalado"
- else 
-	 echo "O NPM não foi encontrado no sistema."
-		echo "Deseja prosseguir com a instalação do NPM? (S/N)"
-		read inst
-		if [ \"$inst\" == \"S\" ]
-			then 
-				echo "Instalando o NPM"
-				sleep 2
-				apt install nodejs npm -y
-		fi
-fi
-
 python3 --version
 
 if [ $? = 0 ]
  then echo "Python já instalado"
+	echo "Instalando as dependências do Python"
+	sleep 3
+	apt install python3-pip
  	pip install mysql-connector-python
 
 	curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc
