@@ -86,19 +86,6 @@ if [ $? = 0 ]
 
 fi
 
-
-
-mysql --version
-
-if [ $? = 0 ] 
- then /usr/local/mysql/support-files/mysql.server status
-  if [ $? = 0  ]
-   then echo "O mysql já está rodando"
-   else echo "O servidor mysql está offline, iniciando" ; usr/local/mysql/support-files.mysql.server start
-  fi
- else apt-get install -y mysql-server
-fi
-
 ls C-GraphCar
 
 if [ $? = 0 ]
