@@ -5,7 +5,7 @@ echo "Bem vindo ao setup de instalação da GraphCar, para executar o script é 
 permission=`id -u`
 
 permissao=`echo $permission`
-`
+
 if [ $permissao = 0 ]
  then echo "Sudo confirmado"
  else echo "É necessário executar como sudo" ; exit
@@ -53,6 +53,23 @@ python3 --version
 
 if [ $? = 0 ]
  then echo "Python já instalado"
+ 	pip install mysql-connector-python
+
+	curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc
+
+	curl https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list
+
+	sudo apt-get update
+	sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
+
+	echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
+	source ~/.bashrc
+	sudo apt-get install -y unixodbc-dev
+
+
+	pip install pyodbc
+	pip install psutil
+	pip install requests
  else 
 	echo "Instalando o Python"
 	sleep 1
@@ -99,9 +116,6 @@ fi
 ls C-GraphCar
 
 if [ $? = 0 ]
- then echo "Diretório C-GraphCar já existe" ; cd C-GraphCar/Dados ; python3 capturarTodos.py & ; cd ..
- else git clone https://github.com/GraphCar/C-GraphCar.git ; cd C-GraphCar/Dados ; python3 capturarTodos.py & ; cd ..
+ then echo "Diretório C-GraphCar já existe" && cd C-GraphCar/Dados && python3 capturarTodos.py && cd ..
+ else git clone https://github.com/GraphCar/C-GraphCar.git && cd C-GraphCar/Dados && python3 capturarTodos.py && cd ..
 fi
-
-npm install
-npm start
