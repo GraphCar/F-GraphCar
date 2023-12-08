@@ -32,11 +32,11 @@ if [ $? = 0 ]
 	fi
 fi
 
-"Verificando se o NPM já está instalado"
+echo "Verificando se o NPM já está instalado"
 npm -- version
 
 if [ $? = 0 ]
- then "NPM já instalado"
+ then echo "NPM já instalado"
  else 
 	 echo "O NPM não foi encontrado no sistema."
 		echo "Deseja prosseguir com a instalação do NPM? (S/N)"
