@@ -49,12 +49,41 @@ if [ $? = 0 ]
 		fi
 fi
 
-java --version
+python3 --version
 
 if [ $? = 0 ]
- then echo "Java instalado"
- else apt install openjdk-17-jre-headless
+ then echo "Python já instalado"
+ else 
+	echo "Instalando o Python"
+	sleep 1
+	apt install apt-get install python3.10
+	echo "Instalando o pip"
+	sleep 1
+	apt install python3-pip
+	echo "Instalando pacotes do Python"
+	sleep 2
+	pip install mysql-connector-python
+
+	curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc
+
+	curl https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list
+
+	sudo apt-get update
+	sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
+
+	echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
+	source ~/.bashrc
+	sudo apt-get install -y unixodbc-dev
+
+
+	pip install pyodbc
+	pip install psutil
+	pip install requests
+
+
 fi
+
+
 
 mysql --version
 
@@ -67,18 +96,11 @@ if [ $? = 0 ]
  else apt-get install -y mysql-server
 fi
 
-ls E-GraphCar
+ls C-GraphCar
 
 if [ $? = 0 ]
- then echo "Diretório C-GraphCar já existe" ; cd E-GraphCar/ ; java -jar monitoramento.jar & ; cd ..
- else git clone https://github.com/GraphCar/C-GraphCar.git ; cd C-GraphCar ; python3  & ; cd ..
-fi
-
-ls A-GraphCar
-
-if [ $? = 0 ]
- then echo "Diretório A-GraphCar já existe, tentando efetuar execução do website" ; cd A-GraphCar/
- else git clone --recurse-submodules https://github.com/GraphCar/A-GraphCar.git ; cd A-GraphCar ; git submodule foreach "(git checkout main; git pull)"
+ then echo "Diretório C-GraphCar já existe" ; cd C-GraphCar/Dados ; python3 capturarTodos.py & ; cd ..
+ else git clone https://github.com/GraphCar/C-GraphCar.git ; cd C-GraphCar/Dados ; python3 capturarTodos.py & ; cd ..
 fi
 
 npm install
